@@ -138,5 +138,8 @@
     "after": [
       "ember-modal-dialog"
     ]
+  },
+  "volta": {
+    "node": "10.17.0"
   }
 }
