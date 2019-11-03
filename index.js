@@ -121,6 +121,16 @@ module.exports = {
     return new AddonDocsDeployPlugin(this._readUserConfig());
   },
 
+  urlsForPrember(distDir, visit) {
+    try {
+      const addonDocsConfig = JSON.parse(fs.readFileSync(path.join(distDir, 'docs/ember-cli-addon-docs.json')));
+      return addonDocsConfig.data.attributes.navigationIndex.flatMap(x => x.items).map(x => x.path)
+    } catch (e) {
+      console.info('Could not parse addon docs. Pre-rendering only application root. ' + e);
+    }
+    return ['/'];
+  },
+
   setupPreprocessorRegistry(type, registry) {
     if (type === 'parent') {
       let TemplateCompiler = require('./lib/preprocessors/markdown-template-compiler');
