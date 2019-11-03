@@ -6,7 +6,7 @@ export function initialize() {
     afterModel() {
       this._super(...arguments);
 
-      const { hash } = location;
+      const { hash } = typeof location === 'undefined' ? {} : location;
       if (hash && hash.length) {
         scheduleOnce('afterRender', null, () => {
           const anchor = document.querySelector(`a[href="${hash}"`);
